@@ -109,11 +109,44 @@
 
       <div class="body-wrapper-inner">
         <div class="container-fluid">
-          <h1>Hola, {{ Auth::user()->name }}</h1>
+          <h1 class="mb-4">Crear contenido</h1>
+
+          @if(session('success'))
+          <div class="alert alert-success">
+            {{ session('success') }}
+          </div>
+          @endif
+
+          <form action="{{ route('contenido.store') }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="card p-4">
+
+            @csrf
+
+            <div class="mb-3">
+              <label class="form-label">Título</label>
+              <input type="text" name="titulo" class="form-control" required>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Descripción</label>
+              <textarea name="descripcion" class="form-control" rows="4" required></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Imagen</label>
+              <input type="file" name="imagen" class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              Guardar
+            </button>
+
+          </form>
         </div>
       </div>
     </div>
-
   </div>
 
   <!-- SCRIPTS -->
@@ -123,4 +156,5 @@
   <script src="{{ asset('assets/js/app.min.js') }}"></script>
   <script src="{{ asset('assets/libs/simplebar/dist/simplebar.js') }}"></script>
 </body>
+
 </html>
